@@ -45,9 +45,6 @@ const App: React.FC = () => {
               PitchProphet <span className="text-pitch-accent">AI</span>
             </h1>
           </div>
-          <div className="text-xs font-mono text-slate-500 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
-            Powered by Gemini 2.5
-          </div>
         </div>
       </header>
 

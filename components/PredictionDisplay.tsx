@@ -39,11 +39,46 @@ export const PredictionDisplay: React.FC<PredictionDisplayProps> = ({ result }) 
         );
       }
 
-      if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
-         // Headers like **Form Guide:**
-         return <h4 key={index} className="text-sm font-bold text-slate-300 mt-3 mb-1">{trimmed.replace(/\*/g, '')}</h4>;
+      if (trimmed.startsWith('**Likely Scorers:**')) {
+        return (
+          <div key={index} className="flex gap-3 items-start my-3 p-3 bg-slate-800/30 rounded border-l-2 border-pitch-accent/60">
+             <span className="text-lg leading-none mt-0.5">👟</span>
+             <div>
+               <h4 className="text-xs font-bold text-pitch-accent uppercase tracking-wider mb-0.5">Players to Watch</h4>
+               <p className="text-sm text-slate-200">{trimmed.replace('**Likely Scorers:**', '').trim()}</p>
+             </div>
+          </div>
+        );
       }
-      
+
+      // Special handling for H2H and Home/Away to add icons
+      if (trimmed.startsWith('**H2H & Form:**')) {
+        const content = trimmed.replace('**H2H & Form:**', '').trim();
+        return (
+          <div key={index} className="mb-2">
+             <div className="flex items-center gap-2 mb-1">
+                <span className="text-slate-500">📊</span>
+                <strong className="text-slate-200 text-sm">Form & H2H</strong>
+             </div>
+             <p className="text-slate-400 text-sm leading-relaxed pl-6">{content}</p>
+          </div>
+        );
+      }
+
+      if (trimmed.startsWith('**Home/Away Advantage:**')) {
+        const content = trimmed.replace('**Home/Away Advantage:**', '').trim();
+        return (
+          <div key={index} className="mb-2">
+             <div className="flex items-center gap-2 mb-1">
+                <span className="text-slate-500">🏠</span>
+                <strong className="text-slate-200 text-sm">Home/Away Factor</strong>
+             </div>
+             <p className="text-slate-400 text-sm leading-relaxed pl-6">{content}</p>
+          </div>
+        );
+      }
+
+      // Generic Key-Value pair from markdown bold syntax
       if (trimmed.startsWith('**')) {
          const parts = trimmed.split('**');
          if (parts.length >= 3) {
